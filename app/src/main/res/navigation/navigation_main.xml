@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="pl.lodz.p.mobi.covidapp.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/instructionFragment"
+        android:name="pl.lodz.p.mobi.covidapp.instruction.InstructionFragment"
+        android:label="fragment_instruction"
+        tools:layout="@layout/fragment_instruction" />
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="pl.lodz.p.mobi.covidapp.start.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" />
+</navigation>
