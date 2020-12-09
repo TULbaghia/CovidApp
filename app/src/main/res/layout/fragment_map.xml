@@ -5,20 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".map.MapFragment"
-    android:background="@color/design_default_color_primary">
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/mapTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="map"
-        android:textColor="@color/white"
-        android:textSize="55dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="377dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/greenZoneButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        app:backgroundTint="@color/green"
+        app:layout_constraintStart_toStartOf="@+id/webView"
+        app:layout_constraintTop_toBottomOf="@+id/webView" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/orangeZoneButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/orange"
+        app:layout_constraintStart_toEndOf="@+id/greenZoneButton"
+        app:layout_constraintTop_toTopOf="@+id/greenZoneButton" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/redZoneButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/red"
+        app:layout_constraintStart_toEndOf="@+id/orangeZoneButton"
+        app:layout_constraintTop_toTopOf="@+id/orangeZoneButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

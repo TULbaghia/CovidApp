@@ -9,9 +9,6 @@ import androidx.fragment.app.Fragment;
 
 import pl.lodz.p.mobi.covidapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class InstructionFragment extends Fragment {
 
     public InstructionFragment() {
