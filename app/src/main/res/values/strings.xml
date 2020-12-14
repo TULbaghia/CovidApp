@@ -16,5 +16,21 @@
     <string name="last_day_deaths">Zmarło %d</string>
     <string name="last_day_confirmed">Potwierdzono %d zakażeń</string>
     <string name="last_day_recovered">Wyzdrowiało %d</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- instructions  -->
+    <string name="start_test">Diagnozuj stan</string>
+    <string name="mz_url">https://www.gov.pl/web/zdrowie</string>
+    <string name="mz_twitter">https://twitter.com/MZ_GOV_PL</string>
+    <string name="mz_facebook">https://www.facebook.com/MZGOVPL/</string>
+
+    <!-- questionnaire -->
+    <string name="yes_button">Tak</string>
+    <string name="no_button">Nie</string>
+    <string name="end_button">Zakoncz</string>
+    <string name="state_healthy">Nie posiadasz większości objawów zakażania COVID-19</string>
+    <string name="state_unsolvable">Nie można jednoznacznie stwierdzić, że jesteś chory</string>
+    <string name="state_infected">Powinieneś natychmiast skontaktować się z lekarzem</string>
 
 </resources>

@@ -28,6 +28,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRetainInstance(true);
         dataViewModel = new ViewModelProvider(getActivity()).get(DataViewModel.class);
     }
 
