@@ -1,4 +1,4 @@
-package pl.lodz.p.mobi.covidapp.map;
+package pl.lodz.p.mobi.covidapp.map.dialogButtons;
 
 import android.os.Bundle;
 
@@ -14,7 +14,7 @@ import android.widget.Button;
 
 import pl.lodz.p.mobi.covidapp.R;
 
-public class OrangeButtonFragment extends DialogFragment {
+public class RedButtonFragment extends DialogFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class OrangeButtonFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_orange_button, container, false);
+        return inflater.inflate(R.layout.fragment_red_button, container, false);
     }
 
     @Override

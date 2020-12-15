@@ -1,11 +1,10 @@
-package pl.lodz.p.mobi.covidapp.map;
+package pl.lodz.p.mobi.covidapp.map.dialogButtons;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import android.widget.Button;
 
 import pl.lodz.p.mobi.covidapp.R;
 
-public class RedButtonFragment extends DialogFragment {
+public class GreenButtonFragment extends DialogFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ public class RedButtonFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_red_button, container, false);
+        return inflater.inflate(R.layout.fragment_green_button, container, false);
     }
 
     @Override

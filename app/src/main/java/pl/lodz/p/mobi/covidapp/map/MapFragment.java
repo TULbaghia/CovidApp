@@ -1,20 +1,31 @@
 package pl.lodz.p.mobi.covidapp.map;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
+
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
+import org.osmdroid.views.MapView;
+
+import java.util.Objects;
+import java.util.UUID;
 
 import pl.lodz.p.mobi.covidapp.R;
+import pl.lodz.p.mobi.covidapp.map.dialogButtons.GreenButtonFragment;
+import pl.lodz.p.mobi.covidapp.map.dialogButtons.OrangeButtonFragment;
+import pl.lodz.p.mobi.covidapp.map.dialogButtons.RedButtonFragment;
+import pl.lodz.p.mobi.covidapp.map.loader.LoadGovData;
 import pl.lodz.p.mobi.covidapp.viewmodel.DataViewModel;
 
 
@@ -29,7 +40,7 @@ public class MapFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRetainInstance(true);
-        dataViewModel = new ViewModelProvider(getActivity()).get(DataViewModel.class);
+        dataViewModel = new ViewModelProvider(requireActivity()).get(DataViewModel.class);
     }
 
     @Override
@@ -41,38 +52,55 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initWebView(view);
-        initZoneButtons(view);
-        initTextZone(view);
+        initMapView();
+//        initWebView(view);
+        initZoneButtons();
+        initTextZone();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    private void initWebView(View view) {
-        WebView webView = (WebView) view.findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.arcgis.com/apps/opsdashboard/index.html#/5dc92a9a7ff8490cbcd98bf8c5cc3ed0");
+    private void initMapView() {
+        Configuration.getInstance().setUserAgentValue("Android-TUL-Mobi-Addax-CovidApp-" + UUID.randomUUID().toString());
+
+        MapView map = (MapView) requireView().findViewById(R.id.map);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
+        map.setMultiTouchControls(true);
+
+        GeoPoint startPoint = new GeoPoint(51.9194, 19.1451);
+        IMapController mapController = map.getController();
+        mapController.setZoom(7.2);
+        mapController.setCenter(startPoint);
+
+        new LoadGovData(map, getResources()).execute("");
     }
 
-    private void initZoneButtons(View view) {
+//    @SuppressLint("SetJavaScriptEnabled")
+//    private void initWebView(View view) {
+//        WebView webView = (WebView) view.findViewById(R.id.webView);
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.loadUrl("https://www.arcgis.com/apps/opsdashboard/index.html#/5dc92a9a7ff8490cbcd98bf8c5cc3ed0");
+//    }
+
+    private void initZoneButtons() {
         FragmentManager fm = getParentFragmentManager();
 
-        view.findViewById(R.id.greenZoneButton).setOnClickListener(view1 -> {
+        requireView().findViewById(R.id.greenZoneButton).setOnClickListener(view1 -> {
             GreenButtonFragment dialogFragment = new GreenButtonFragment();
             dialogFragment.show(fm, "Sample Fragment");
         });
 
-        view.findViewById(R.id.orangeZoneButton).setOnClickListener(view1 -> {
+        requireView().findViewById(R.id.orangeZoneButton).setOnClickListener(view1 -> {
             OrangeButtonFragment dialogFragment = new OrangeButtonFragment();
             dialogFragment.show(fm, "Sample Fragment");
         });
 
-        view.findViewById(R.id.redZoneButton).setOnClickListener(view1 -> {
+        requireView().findViewById(R.id.redZoneButton).setOnClickListener(view1 -> {
             RedButtonFragment dialogFragment = new RedButtonFragment();
             dialogFragment.show(fm, "Sample Fragment");
         });
     }
 
-    private void initTextZone(View view) {
+    private void initTextZone() {
         dataViewModel.getCountyStats().forEach((x, y) -> {
             System.out.println(x);
             Log.d("TEST", x);
