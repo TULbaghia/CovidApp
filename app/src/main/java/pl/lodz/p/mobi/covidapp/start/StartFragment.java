@@ -4,20 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import pl.lodz.p.mobi.covidapp.R;
-import pl.lodz.p.mobi.covidapp.json.data.DataTypeEnum;
 import pl.lodz.p.mobi.covidapp.start.chart.BarChartWrapper;
 import pl.lodz.p.mobi.covidapp.viewmodel.DataViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class StartFragment extends Fragment {
 
     DataViewModel dataViewModel = null;
@@ -33,38 +33,55 @@ public class StartFragment extends Fragment {
         dataViewModel = new ViewModelProvider(this).get(DataViewModel.class);
     }
 
-    private void initChartButtonsListeners(View view) {
-        FloatingActionButton showConfirmedChartButton = view.findViewById(R.id.showConfirmedChartButton);
-        FloatingActionButton showDeathsChartButton = view.findViewById(R.id.showDeathsChartButton);
-        FloatingActionButton showRecoveredChartButton = view.findViewById(R.id.showRecoveredChartButton);
-        showConfirmedChartButton.setOnClickListener(view13 -> setChartOptions(DataTypeEnum.CONFIRMED, getString(R.string.confirmed)));
-
-        showDeathsChartButton.setOnClickListener(view1 -> setChartOptions(DataTypeEnum.DEATHS, getString(R.string.deaths)));
-
-        showRecoveredChartButton.setOnClickListener(view12 -> setChartOptions(DataTypeEnum.RECOVERED, getString(R.string.recovered)));
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_start, container, false);
-        barChartWrapper = new BarChartWrapper(view.findViewById(R.id.barChart));
-        initChartButtonsListeners(view);
-        setDefaultChart(view);
         return view;
     }
 
-    private void setDefaultChart(View view) {
-        view.findViewById(R.id.showDeathsChartButton).performClick();
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        barChartWrapper = new BarChartWrapper(view.findViewById(R.id.barChart));
+        dataViewModel.setCountryStats(getResources().getInteger(R.integer.days_considered));
+        initChartButtonsListeners();
+        initStatsTextViews();
+        setDefaultChart();
     }
 
-    public void setChartOptions(DataTypeEnum dataType, String label) {
-        dataViewModel.setCountryStats(getResources().getInteger(R.integer.days_considered), dataType);
-        barChartWrapper.setBarEntries(dataViewModel.getCountryStatsValues(), label);
-        barChartWrapper.formatXAxis(dataViewModel.getCountryStatsKeys());
+
+    private void initChartButtonsListeners() {
+        FloatingActionButton showConfirmedChartButton = requireView().findViewById(R.id.showConfirmedChartButton);
+        FloatingActionButton showDeathsChartButton = requireView().findViewById(R.id.showDeathsChartButton);
+        FloatingActionButton showRecoveredChartButton = requireView().findViewById(R.id.showRecoveredChartButton);
+
+        showConfirmedChartButton.setOnClickListener(v -> setChartOptions(dataViewModel.getCountryConfirmedStats(), getString(R.string.confirmed)));
+        showDeathsChartButton.setOnClickListener(v -> setChartOptions(dataViewModel.getCountryDeathsStats(), getString(R.string.deaths)));
+        showRecoveredChartButton.setOnClickListener(v -> setChartOptions(dataViewModel.getCountryRecoveredStats(), getString(R.string.recovered)));
+    }
+
+    private void initStatsTextViews() {
+        String dataFromDay = new ArrayList<>(dataViewModel.getCountryDeathsStats().entrySet()).get(dataViewModel.getCountryDeathsStats().size() - 1).getKey();
+        dataFromDay = dataFromDay.replace('-', '/');
+        int confirmed = new ArrayList<>(dataViewModel.getCountryConfirmedStats().entrySet()).get(dataViewModel.getCountryConfirmedStats().size() - 1).getValue();
+        int recovered = new ArrayList<>(dataViewModel.getCountryRecoveredStats().entrySet()).get(dataViewModel.getCountryRecoveredStats().size() - 1).getValue();
+        int dead = new ArrayList<>(dataViewModel.getCountryDeathsStats().entrySet()).get(dataViewModel.getCountryDeathsStats().size() - 1).getValue();
+
+        ((TextView) requireView().findViewById(R.id.statsLabelTextView)).setText(getString(R.string.last_day, dataFromDay));
+        ((TextView) requireView().findViewById(R.id.confirmedTextView)).setText(getString(R.string.last_day_confirmed, confirmed));
+        ((TextView) requireView().findViewById(R.id.recoveredTextView)).setText(getString(R.string.last_day_recovered, recovered));
+        ((TextView) requireView().findViewById(R.id.deathsTextView)).setText(getString(R.string.last_day_deaths, dead));
+    }
+
+    private void setDefaultChart() {
+        requireView().findViewById(R.id.showDeathsChartButton).performClick();
+    }
+
+    public void setChartOptions(Map<String, Integer> data, String label) {
+        barChartWrapper.setBarEntries(new ArrayList<>(data.values()), label);
+        barChartWrapper.formatXAxis(new ArrayList<>(data.keySet()));
         barChartWrapper.getBarChart().notifyDataSetChanged();
         barChartWrapper.getBarChart().invalidate();
     }
-
-
 }

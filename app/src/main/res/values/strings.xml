@@ -12,10 +12,10 @@
     <string name="recovered">Wyzdrowiało</string>
 
     <!-- last day stats labels -->
-    <string name="last_day">Statystyki z dnia %s</string>
-    <string name="last_day_deaths">Zmarło %d</string>
-    <string name="last_day_confirmed">Potwierdzono %d zakażeń</string>
-    <string name="last_day_recovered">Wyzdrowiało %d</string>
+    <string name="last_day">Statystyki na dzień %s</string>
+    <string name="last_day_deaths">Zmarło %d osób.</string>
+    <string name="last_day_confirmed">Potwierdzono %d zakażeń.</string>
+    <string name="last_day_recovered">Wyzdrowiało %d osób.</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 

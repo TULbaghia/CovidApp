@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_baseline_reduce_capacity_24"
+        android:src="@drawable/ic_baseline_accessibility_24"
         app:layout_constraintEnd_toStartOf="@+id/showRecoveredChartButton"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toEndOf="@+id/showConfirmedChartButton"
@@ -32,7 +32,7 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,15 +47,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:clickable="true"
-        android:src="@drawable/ic_baseline_accessibility_24"
+        android:src="@drawable/ic_baseline_reduce_capacity_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/showDeathsChartButton" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/statsLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:text="@string/last_day"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/showDeathsChartButton" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/recoveredTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -71,26 +71,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/statsLabelTextView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/confirmedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/last_day_confirmed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/recoveredTextView" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/deathsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/last_day_deaths"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/confirmedTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

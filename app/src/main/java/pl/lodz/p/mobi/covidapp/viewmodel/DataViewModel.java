@@ -12,11 +12,15 @@ import pl.lodz.p.mobi.covidapp.json.JsonDataParser;
 import pl.lodz.p.mobi.covidapp.json.data.model.CountyModel;
 
 public class DataViewModel extends ViewModel {
-    private Map<String, Integer> countryStats = new TreeMap<>();
+    private Map<String, Integer> countryDeathsStats = new TreeMap<>();
+    private Map<String, Integer> countryRecoveredStats = new TreeMap<>();
+    private Map<String, Integer> countryConfirmedStats = new TreeMap<>();
     private Map<String, CountyModel> countyStats = new TreeMap<>();
 
-    public void setCountryStats(int daysConsideredNumber, DataTypeEnum dataType) {
-        countryStats = JsonDataParser.readTotalCountryStatistics(dataType, daysConsideredNumber);
+    public void setCountryStats(int daysConsideredNumber) {
+        countryDeathsStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.DEATHS, daysConsideredNumber);
+        countryRecoveredStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.CONFIRMED, daysConsideredNumber);
+        countryConfirmedStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.RECOVERED, daysConsideredNumber);
     }
 
     public void setCountyStats() {
@@ -28,12 +32,16 @@ public class DataViewModel extends ViewModel {
         super.onCleared();
     }
 
-    public List<String> getCountryStatsKeys() {
-        return new ArrayList<>(countryStats.keySet());
+    public Map<String, Integer> getCountryDeathsStats() {
+        return countryDeathsStats;
     }
 
-    public List<Integer> getCountryStatsValues() {
-        return new ArrayList<>(countryStats.values());
+    public Map<String, Integer> getCountryRecoveredStats() {
+        return countryRecoveredStats;
+    }
+
+    public Map<String, Integer> getCountryConfirmedStats() {
+        return countryConfirmedStats;
     }
 
     public Map<String, CountyModel> getCountyStats() {
