@@ -18,7 +18,6 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 
-import java.util.Objects;
 import java.util.UUID;
 
 import pl.lodz.p.mobi.covidapp.R;
@@ -27,6 +26,8 @@ import pl.lodz.p.mobi.covidapp.map.dialogButtons.OrangeButtonFragment;
 import pl.lodz.p.mobi.covidapp.map.dialogButtons.RedButtonFragment;
 import pl.lodz.p.mobi.covidapp.map.loader.LoadGovData;
 import pl.lodz.p.mobi.covidapp.viewmodel.DataViewModel;
+
+import static android.view.View.GONE;
 
 
 public class MapFragment extends Fragment {
@@ -52,6 +53,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.countyInfoLayout).setVisibility(GONE);
         initMapView();
 //        initWebView(view);
         initZoneButtons();

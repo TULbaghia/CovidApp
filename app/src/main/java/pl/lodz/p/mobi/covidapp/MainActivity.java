@@ -25,7 +25,5 @@ public class MainActivity extends AppCompatActivity {
         // TODO: check if change is possible.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
    }
-
 }

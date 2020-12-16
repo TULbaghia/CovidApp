@@ -34,6 +34,9 @@ public class BarChartWrapper {
         BarData barData = new BarData(barDataSet);
         barChart.setData(barData);
         barChart.animateY(2000);
+        barChart.getDescription().setEnabled(false);
+        barChart.getBarData().setValueTextSize(10f);
+        barChart.setTouchEnabled(false);
     }
 
     public BarChart getBarChart() {

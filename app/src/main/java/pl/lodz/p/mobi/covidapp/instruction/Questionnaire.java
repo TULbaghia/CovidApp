@@ -1,14 +1,22 @@
 package pl.lodz.p.mobi.covidapp.instruction;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import pl.lodz.p.mobi.covidapp.R;
 
 public class Questionnaire {
+
+    private UUID id;
+
     private final List<Question> questionList = new ArrayList<>();
 
     public Questionnaire() {
+        this.setId();
         questionList.add((new Question()).setTitle("Czy masz kaszel?").setDescription("").setWeight(84));
-//        questionList.add((new Question()).setTitle("Czy kaszel jest suchy?").setDescription("").setWeight());
         questionList.add((new Question()).setTitle("Czy masz gorączkę?").setDescription("").setWeight(80));
         questionList.add((new Question()).setTitle("Czy masz bóle mięśni?").setDescription("").setWeight(63));
         questionList.add((new Question()).setTitle("Czy masz dreszcze?").setDescription("").setWeight(63));
@@ -34,5 +42,34 @@ public class Questionnaire {
 
     public double calculateAnswer() {
         return questionList.stream().filter(Question::isResponse).mapToDouble(Question::getWeight).sum();
+    }
+
+    public String formatAnswer(Context context) {
+        double score = calculateAnswer();
+        if(score < 250) {
+            return context.getString(R.string.state_healthy);
+        } else if (score < 320) {
+            return context.getString(R.string.state_unsolvable);
+        } else {
+            return context.getString(R.string.state_infected);
+        }
+    }
+
+
+
+    public void setId() {
+        this.id = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Questionnaire{" +
+                "id=" + id +
+                ", questionList=" + questionList +
+                '}';
     }
 }

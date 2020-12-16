@@ -1,6 +1,10 @@
 package pl.lodz.p.mobi.covidapp.map.loader;
 
+import android.app.Activity;
 import android.graphics.Color;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.osmdroid.bonuspack.kml.KmlFeature;
 import org.osmdroid.bonuspack.kml.KmlLineString;
@@ -8,6 +12,7 @@ import org.osmdroid.bonuspack.kml.KmlPlacemark;
 import org.osmdroid.bonuspack.kml.KmlPoint;
 import org.osmdroid.bonuspack.kml.KmlPolygon;
 import org.osmdroid.bonuspack.kml.KmlTrack;
+import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Overlay;
@@ -16,6 +21,8 @@ import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 
 import java.util.Map;
+
+import pl.lodz.p.mobi.covidapp.R;
 
 public class MyKmlStyler implements KmlFeature.Styler {
     MapView map;
@@ -60,6 +67,19 @@ public class MyKmlStyler implements KmlFeature.Styler {
                     "Liczba zgonów: " + t.third + "<br>";
             polygon.setSubDescription(builder);
         }
+
+        polygon.setOnClickListener(new Polygon.OnClickListener() {
+            @Override
+            public boolean onClick(Polygon polygon, MapView mapView, GeoPoint eventPos) {
+                String subDescription = polygon.getSubDescription().replace("<br>", "\n");
+                String title = polygon.getTitle();
+                ((TextView)((Activity) mapView.getContext()).findViewById(R.id.countyTitleTextView)).setText(title);
+                ((TextView)((Activity) mapView.getContext()).findViewById(R.id.countyInfoTextView)).setText(subDescription);
+                ((Activity) mapView.getContext()).findViewById(R.id.countyInfoLayout).setVisibility(View.VISIBLE);
+                polygon.showInfoWindow();
+                return true;
+            }
+        });
 
     }
 

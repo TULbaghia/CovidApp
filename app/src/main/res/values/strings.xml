@@ -19,11 +19,40 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <!-- map -->
+    <string name="exit_zone_dialog">Powrót</string>
+    <string name="map_legend">Legenda</string>
+    <string name="green_zone_dialog">Zielona strefa</string>
+    <string name="orange_zone_dialog">
+        - działalność gastronomii możliwa w godzinach 6-21, później wyłącznie na dowóz, zajęty może być co drugi stolik
+        - transport publiczny: 50 proc. miejsc siedzących lub 30 proc. wszystkich może być zajętych
+        - wesela i imprezy okolicznościowe - maksymalna liczba uczestników to 20 osób, bez zabawy tanecznej (obowiązuje od 19.10)
+        - maksymalnie 1 osoba na 4 mkw podczas uroczystości religijnych
+        - zgromadzenia publiczne do 25 osób
+        - szkoły wyższe i ponadpodstawowe przechodzą w tryb nauki hybrydowej
+        - wydarzenia sportowe bez udziału publiczności
+        - wydarzenia kulturalne - do 25 proc. udziału publiczności
+        - zawieszona działalność basenów, aquaparków, siłowni
+    </string>
+    <string name="red_zone_dialog">
+        - ograniczenie liczby osób w placówkach handlowych do 5 osób na kasę
+        - działalność gastronomii w godzinach 6-21, potem tylko na wynos, co drugi zajęty stolik
+        - zakaz organizacji imprez okolicznościowych (wesela, stypy) - obowiązuje od 19.10
+        - maksymalnie 1 osoba na 7 mkw podczas uroczystości religijnych
+        - ograniczenie liczba osób w transporcie publicznym – zajętych może być 50 proc. miejsc siedzących lub 30 proc. liczby wszystkich miejsc
+        - zgromadzenia publiczne do 10 osób
+        - szkoły wyższe i ponadpodstawowe - nauczanie zdalne (z wyłączeniem zajęć praktycznych)
+        - wydarzenia sportowe bez udziału publiczności
+        - wydarzenia kulturalne - do 25 proc. udziału publiczności
+        - zawieszona działalność basenów, aquaparków, siłowni
+    </string>
+
     <!-- instructions  -->
     <string name="start_test">Diagnozuj stan</string>
     <string name="mz_url">https://www.gov.pl/web/zdrowie</string>
-    <string name="mz_twitter">https://twitter.com/MZ_GOV_PL</string>
-    <string name="mz_facebook">https://www.facebook.com/MZGOVPL/</string>
+    <string name="mz_twitter_url">https://twitter.com/MZ_GOV_PL</string>
+    <string name="mz_facebook_url">https://www.facebook.com/MZGOVPL/</string>
+    <string name="questionnaire_info">Ankieta wypełniona dnia %s. Stan: %s.</string>
 
     <!-- questionnaire -->
     <string name="yes_button">Tak</string>

@@ -2,8 +2,6 @@ package pl.lodz.p.mobi.covidapp.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 

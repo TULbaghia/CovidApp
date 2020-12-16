@@ -36,8 +36,7 @@ public class StartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_start, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_start, container, false);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class StartFragment extends Fragment {
     }
 
     private void setDefaultChart() {
-        requireView().findViewById(R.id.showDeathsChartButton).performClick();
+        requireView().findViewById(R.id.showDeathsChartButton).callOnClick();
     }
 
     public void setChartOptions(Map<String, Integer> data, String label) {

@@ -8,10 +8,11 @@
     tools:context=".instruction.InstructionFragment"
     android:background="@color/white">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,45 +28,80 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/questionnariesLayout"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/startTest"
-            tools:layout_editor_absoluteX="142dp" />
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/startTest">
 
+            <TextView
+                android:id="@+id/questionnaire1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/questionnaire2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/questionnaire3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/questionnaire4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/questionnaire5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/mz_gov_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="96dp"
-        android:text="@string/mz_url"
+    <ImageView
+        android:id="@+id/facebookImageView"
+        android:layout_width="58dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="72dp"
         android:autoLink="web"
+        android:src="@drawable/facebook"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/twitterImageView" />
+
+    <ImageView
+        android:id="@+id/twitterImageView"
+        android:layout_width="58dp"
+        android:layout_height="55dp"
+        android:autoLink="web"
+        android:src="@drawable/twitter"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toTopOf="@+id/facebookImageView" />
 
-
-    <TextView
-        android:id="@+id/mz_fb_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/mz_facebook"
+    <ImageView
+        android:id="@+id/mzImageView"
+        android:layout_width="58dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="50dp"
+        android:src="@drawable/mz"
         android:autoLink="web"
-        app:layout_constraintStart_toStartOf="@+id/mz_tt_link"
-        app:layout_constraintTop_toBottomOf="@+id/mz_tt_link" />
-
-    <TextView
-        android:id="@+id/mz_tt_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/mz_twitter"
-        android:autoLink="web"
-        app:layout_constraintStart_toStartOf="@+id/mz_gov_link"
-        app:layout_constraintTop_toBottomOf="@+id/mz_gov_link" />
+        app:layout_constraintStart_toEndOf="@+id/twitterImageView"
+        app:layout_constraintTop_toTopOf="@+id/twitterImageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,11 +12,13 @@
     android:minHeight="450dp">
 
     <TextView
+        android:textAlignment="center"
+        android:gravity="center"
         android:id="@+id/title"
         android:layout_width="277dp"
         android:layout_height="294dp"
         android:layout_marginTop="4dp"
-        android:text="GREEN"
+        android:text="@string/green_zone_dialog"
         android:textSize="20dp" />
 
     <Button
@@ -24,5 +26,5 @@
         android:layout_width="137dp"
         android:layout_height="42dp"
         android:layout_marginTop="40dp"
-        android:text="Dismiss" />
+        android:text="@string/exit_zone_dialog" />
 </LinearLayout>

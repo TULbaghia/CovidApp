@@ -3,6 +3,12 @@ package pl.lodz.p.mobi.covidapp.instruction;
 public class Question {
     private String imagePath = "";
     private String title;
+
+    @Override
+    public String toString() {
+        return "{ Title=" + title + ", response=" + response + '}';
+    }
+
     private String description;
     private double weight;
     private boolean response = false;

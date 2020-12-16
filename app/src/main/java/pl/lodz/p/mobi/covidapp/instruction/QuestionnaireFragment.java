@@ -1,5 +1,9 @@
 package pl.lodz.p.mobi.covidapp.instruction;
 
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import pl.lodz.p.mobi.covidapp.R;
+import pl.lodz.p.mobi.covidapp.persistance.SQLiteHelper;
 
 public class QuestionnaireFragment extends DialogFragment {
     private Questionnaire questionnaire;
@@ -40,6 +47,12 @@ public class QuestionnaireFragment extends DialogFragment {
         renderView();
     }
 
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        ((InstructionFragment) getTargetFragment()).getQuestionnaires();
+    }
+
     private void updateView(boolean status) {
         questionnaire.solve(currentQuestion, status);
         if (questionnaire.getQuestionList().size() > currentQuestion + 1) {
@@ -47,18 +60,22 @@ public class QuestionnaireFragment extends DialogFragment {
             renderView();
         } else {
             TextView textView = getView().findViewById(R.id.questionTitle);
-            double answerValue = questionnaire.calculateAnswer();
-            if(answerValue < 250) {
-                textView.setText(getString(R.string.state_healthy));
-            } else if (answerValue < 320) {
-                textView.setText(getString(R.string.state_unsolvable));
-            } else {
-                textView.setText(getString(R.string.state_infected));
-            }
+            textView.setText(questionnaire.formatAnswer(getContext()));
+//            double answerValue = questionnaire.calculateAnswer();
+//            if(answerValue < 250) {
+//                textView.setText(getString(R.string.state_healthy));
+//            } else if (answerValue < 320) {
+//                textView.setText(getString(R.string.state_unsolvable));
+//            } else {
+//                textView.setText(getString(R.string.state_infected));
+//            }
             getView().findViewById(R.id.sayYes).setVisibility(View.GONE);
             getView().findViewById(R.id.sayNo).setVisibility(View.GONE);
             getView().findViewById(R.id.endButton).setVisibility(View.VISIBLE);
             getView().findViewById(R.id.endButton).setOnClickListener(x -> this.dismiss());
+
+            SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
+            sqLiteHelper.addQuestionnairesResults(questionnaire);
         }
     }
 
