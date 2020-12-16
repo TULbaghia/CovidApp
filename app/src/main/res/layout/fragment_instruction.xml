@@ -40,35 +40,30 @@
                 android:id="@+id/questionnaire1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:layout_marginTop="20dp"/>
 
             <TextView
                 android:id="@+id/questionnaire2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:layout_marginTop="20dp"/>
 
             <TextView
                 android:id="@+id/questionnaire3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:layout_marginTop="20dp"/>
 
             <TextView
                 android:id="@+id/questionnaire4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:layout_marginTop="20dp"/>
 
             <TextView
                 android:id="@+id/questionnaire5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:layout_marginTop="20dp"/>
         </LinearLayout>
 
