@@ -1,10 +1,8 @@
 package pl.lodz.p.mobi.covidapp.viewmodel;
 
 import androidx.lifecycle.ViewModel;
-
 import java.util.Map;
 import java.util.TreeMap;
-
 import pl.lodz.p.mobi.covidapp.json.data.DataTypeEnum;
 import pl.lodz.p.mobi.covidapp.json.JsonDataParser;
 import pl.lodz.p.mobi.covidapp.json.data.model.CountyModel;

@@ -7,9 +7,9 @@
     <string name="home">Start</string>
 
     <!-- chart labels -->
-    <string name="deaths">Śmierci</string>
-    <string name="confirmed">Zakażenia</string>
-    <string name="recovered">Wyzdrowiało</string>
+    <string name="deaths">Zmarli</string>
+    <string name="confirmed">Zakażeni</string>
+    <string name="recovered">Zdrowi</string>
 
     <!-- last day stats labels -->
     <string name="last_day">Statystyki na dzień %s</string>
@@ -64,5 +64,10 @@
     <string name="state_infected">Powinieneś natychmiast skontaktować się z lekarzem</string>
 
     <string name="progress" formatted="true">Pytanie nr %d / %d</string>
+    <string-array name="range" formatted="true">
+        <item>Ostatnie 7 dni</item>
+        <item>Ostatnie 14 dni</item>
+        <item>Ostatni miesiąc</item>
+    </string-array>
 
 </resources>

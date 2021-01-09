@@ -7,77 +7,55 @@
     android:background="@color/white"
     tools:context=".start.StartFragment">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/showDeathsChartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_accessibility_24"
-        app:layout_constraintEnd_toStartOf="@+id/showRecoveredChartButton"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toEndOf="@+id/showConfirmedChartButton"
-        app:layout_constraintTop_toBottomOf="@+id/barChart" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/showRecoveredChartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:clickable="true"
-        android:src="@drawable/ic_instructions"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/filterButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="30dp"
+        android:backgroundTint="@color/blue_light"
+        android:text="filtruj"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/showDeathsChartButton" />
+        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/filterButton">
 
     </com.github.mikephil.charting.charts.BarChart>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/showConfirmedChartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_reduce_capacity_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/showDeathsChartButton" />
 
     <TextView
         android:id="@+id/statsLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="40dp"
         android:text="@string/last_day"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showDeathsChartButton" />
+        app:layout_constraintTop_toBottomOf="@+id/barChart" />
 
     <TextView
         android:id="@+id/recoveredTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="@string/last_day_recovered"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statsLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/deathsTextView" />
 
     <TextView
         android:id="@+id/confirmedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="@string/last_day_confirmed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,10 +65,9 @@
         android:id="@+id/deathsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="@string/last_day_deaths"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmedTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/statsLabelTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

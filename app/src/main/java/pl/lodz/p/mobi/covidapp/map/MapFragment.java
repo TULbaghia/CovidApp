@@ -76,13 +76,6 @@ public class MapFragment extends Fragment {
         new LoadGovData(map, getResources()).execute("");
     }
 
-//    @SuppressLint("SetJavaScriptEnabled")
-//    private void initWebView(View view) {
-//        WebView webView = (WebView) view.findViewById(R.id.webView);
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        webView.loadUrl("https://www.arcgis.com/apps/opsdashboard/index.html#/5dc92a9a7ff8490cbcd98bf8c5cc3ed0");
-//    }
-
     private void initZoneButtons() {
         FragmentManager fm = getParentFragmentManager();
 

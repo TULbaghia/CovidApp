@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".start.FilterFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:minWidth="1500dp"
+    android:minHeight="450dp">
+
+    <Spinner
+        android:id="@+id/filterSpinner"
+        android:layout_width="196dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="107dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/agregateConstraintLayout"
+        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterSpinner">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/lastDayButton"
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:backgroundTint="@color/blue_light"
+            android:text="z dnia"
+            app:layout_constraintStart_toEndOf="@+id/agregateButton"
+            app:layout_constraintTop_toTopOf="@+id/agregateButton"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded.Right" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/agregateButton"
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:backgroundTint="@color/green_light"
+            android:text="agregacja"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded.Left" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chartOptionConstraint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterSpinner">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/showDeathsChartButton"
+            android:layout_width="109dp"
+            android:layout_height="75dp"
+            android:backgroundTint="@color/green_light"
+            android:text="@string/deaths"
+            app:layout_constraintEnd_toStartOf="@+id/showRecoveredChartButton"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded.Left" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/showRecoveredChartButton"
+            android:layout_width="105dp"
+            android:layout_height="75dp"
+            android:backgroundTint="@color/blue_light"
+            android:text="@string/recovered"
+            app:layout_constraintEnd_toStartOf="@+id/showConfirmedChartButton"
+            app:layout_constraintTop_toTopOf="@+id/showDeathsChartButton"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.0" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/showConfirmedChartButton"
+            android:layout_width="109dp"
+            android:layout_height="75dp"
+            android:backgroundTint="#CF5151"
+            android:text="@string/confirmed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/showRecoveredChartButton"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded.Right" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dismissButton"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/blue_light"
+        android:text="zamknij"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastDayButton"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded"
+        tools:ignore="MissingConstraints" />
+
+</LinearLayout>

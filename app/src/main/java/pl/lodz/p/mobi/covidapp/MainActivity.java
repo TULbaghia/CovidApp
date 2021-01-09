@@ -10,6 +10,8 @@ import android.os.StrictMode;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import pl.lodz.p.mobi.covidapp.persistance.SQLiteHelper;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView mainNavigation;

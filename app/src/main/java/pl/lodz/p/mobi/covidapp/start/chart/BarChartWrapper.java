@@ -21,6 +21,7 @@ public class BarChartWrapper {
         XAxis bottomAxis = barChart.getXAxis();
         bottomAxis.setValueFormatter(new IndexAxisValueFormatter(descriptions));
         bottomAxis.setLabelCount(descriptions.size());
+        bottomAxis.setLabelCount(6);
     }
 
     public void setBarEntries(List<Integer> values, String label) {
@@ -30,7 +31,12 @@ public class BarChartWrapper {
             barEntries.add(new BarEntry(i, value));
             i++;
         }
+
         BarDataSet barDataSet = new BarDataSet(barEntries, label);
+        if (values.size() > 7) {
+            barDataSet.setDrawValues(false);
+        }
+
         BarData barData = new BarData(barDataSet);
         barChart.setData(barData);
         barChart.animateY(2000);
