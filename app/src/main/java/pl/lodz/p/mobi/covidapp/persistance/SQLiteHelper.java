@@ -62,7 +62,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 + QUESTIONNAIRES_TABLE_NAME
                 + " ORDER BY "
                 + QUESTIONNAIRE_CREATION_DATE_COLUMN
-                + " DESC LIMIT 5 ";
+                + " DESC LIMIT 6 ";
 
         int index = 0;
         Cursor cursor = db.rawQuery(query, new String []{});

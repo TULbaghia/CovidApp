@@ -52,6 +52,7 @@
     <string name="mz_url">https://www.gov.pl/web/zdrowie</string>
     <string name="mz_twitter_url">https://twitter.com/MZ_GOV_PL</string>
     <string name="mz_facebook_url">https://www.facebook.com/MZGOVPL/</string>
+    <string name="vaccinate_url">https://www.gov.pl/web/szczepimysie</string>
     <string name="questionnaire_info">Ankieta wypełniona dnia %s. Stan: %s.</string>
 
     <!-- questionnaire -->
@@ -61,5 +62,7 @@
     <string name="state_healthy">Nie posiadasz większości objawów zakażania COVID-19</string>
     <string name="state_unsolvable">Nie można jednoznacznie stwierdzić, że jesteś chory</string>
     <string name="state_infected">Powinieneś natychmiast skontaktować się z lekarzem</string>
+
+    <string name="progress" formatted="true">Pytanie nr %d / %d</string>
 
 </resources>

@@ -1,23 +1,19 @@
 package pl.lodz.p.mobi.covidapp.instruction;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import java.util.List;
-
 import pl.lodz.p.mobi.covidapp.R;
 import pl.lodz.p.mobi.covidapp.persistance.SQLiteHelper;
 
@@ -42,6 +38,8 @@ public class QuestionnaireFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         questionnaire = new Questionnaire();
 
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setMax(questionnaire.getQuestionList().size());
         view.findViewById(R.id.sayNo).setOnClickListener(v -> updateView(false));
         view.findViewById(R.id.sayYes).setOnClickListener(v -> updateView(true));
         renderView();
@@ -61,18 +59,17 @@ public class QuestionnaireFragment extends DialogFragment {
         } else {
             TextView textView = getView().findViewById(R.id.questionTitle);
             textView.setText(questionnaire.formatAnswer(getContext()));
-//            double answerValue = questionnaire.calculateAnswer();
-//            if(answerValue < 250) {
-//                textView.setText(getString(R.string.state_healthy));
-//            } else if (answerValue < 320) {
-//                textView.setText(getString(R.string.state_unsolvable));
-//            } else {
-//                textView.setText(getString(R.string.state_infected));
-//            }
+
             getView().findViewById(R.id.sayYes).setVisibility(View.GONE);
             getView().findViewById(R.id.sayNo).setVisibility(View.GONE);
-            getView().findViewById(R.id.endButton).setVisibility(View.VISIBLE);
-            getView().findViewById(R.id.endButton).setOnClickListener(x -> this.dismiss());
+
+            Button endButton = getView().findViewById(R.id.endButton);
+            endButton.setVisibility(View.VISIBLE);
+            endButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(questionnaire.formatColor())));
+            endButton.setOnClickListener(x -> this.dismiss());
+
+            ProgressBar progressBar = getView().findViewById(R.id.progressBar);
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor(questionnaire.formatColor())));
 
             SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
             sqLiteHelper.addQuestionnairesResults(questionnaire);
@@ -82,22 +79,14 @@ public class QuestionnaireFragment extends DialogFragment {
     private void renderView() {
         TextView textView = getView().findViewById(R.id.questionTitle);
         textView.setText(questionnaire.getQuestionList().get(currentQuestion).getTitle());
-    }
 
-    // 1. Podaj wiek
-    // 2. Czy masz kaszel? (TAK, NIE)         84%
-    // 2a. Czy kaszel jest suchy? (TAK, NIE)   suchy 50% : mokry 25%
-    // 3. Czy masz gorączkę? (TAK, NIE)    80%
-    // 4. Czy masz bóle mięśni? (TAK, NIE) 63%
-    // 5. Czy masz dreszcze? (TAK, NIE)    63%
-    // 6. Czy odczuwasz przemęczenie? (TAK, NIE)   62%
-    // 7. Czy masz bóle głowy? (TAK, NIE)    59%
-    // 8. Czy masz płytki oddech? (TAK, NIE)  57%
-    // 9. Czy masz ból gardła? (TAK, NIE)    40%
-    // 10. Czy masz katar? (TAK, NIE)        40%
-    // 11. Czy masz biegunkę? (TAK, NIE)        38%
-    // 12. Czy masz bóle w klatce piersiowej? (TAK, NIE)   23%
-    // 13. Czy odczuwasz zmianę smaku lub węchu? (TAK, NIE) 20%
-    // 14. Czy wymiotujesz? (TAK, NIE)     13%
-    // 15. Czy masz wysypkę? (TAK, NIE)   5%
+        ProgressBar progressBar = getView().findViewById(R.id.progressBar);
+        progressBar.setProgress(currentQuestion + 1);
+
+        TextView progressTextView = getView().findViewById(R.id.progressTextView);
+        progressTextView.setText(getString(R.string.progress, currentQuestion + 1, questionnaire.getQuestionList().size()));
+
+        ImageView questionImageView = getView().findViewById(R.id.questionImageView);
+        questionImageView.setImageResource(questionnaire.getQuestionList().get(currentQuestion).getImageResource());
+    }
 }

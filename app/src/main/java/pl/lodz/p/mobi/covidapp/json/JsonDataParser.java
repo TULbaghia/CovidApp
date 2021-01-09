@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -31,7 +33,7 @@ public class JsonDataParser {
     }
 
     public static Map<String, Integer> readTotalCountryStatistics(DataTypeEnum url, int daysConsideredNumber) {
-        Map<String, Integer> parsedDataList = new TreeMap<>();
+        Map<String, Integer> parsedDataList = new LinkedHashMap<>();
         try {
             JSONArray json = new JSONArray(readUrl(url.getUrl()));
             for (int i = 0; i < daysConsideredNumber; i++) {

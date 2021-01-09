@@ -19,6 +19,7 @@
         app:navGraph="@navigation/navigation_main" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:theme="@style/BottomNavThem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/mainNavigation"
