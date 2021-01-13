@@ -1,6 +1,7 @@
 package pl.lodz.p.mobi.covidapp.start;
 
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,11 +55,37 @@ public class FilterFragment extends DialogFragment {
         Button agregateButton = requireView().findViewById(R.id.agregateButton);
         Button lastDayButton = requireView().findViewById(R.id.lastDayButton);
 
-        showConfirmedChartButton.setOnClickListener(v -> sqLiteHelper.updateConfig("DATA_TYPE", "CONFIRMED"));
-        showDeathsChartButton.setOnClickListener(v -> sqLiteHelper.updateConfig("DATA_TYPE", "DEATHS"));
-        showRecoveredChartButton.setOnClickListener(v -> sqLiteHelper.updateConfig("DATA_TYPE", "RECOVERED"));
-        agregateButton.setOnClickListener(v -> sqLiteHelper.updateConfig("CHART_TYPE", "AGGREGATED"));
-        lastDayButton.setOnClickListener(v -> sqLiteHelper.updateConfig("CHART_TYPE", "PER_DAY"));
+        showConfirmedChartButton.setOnClickListener(v -> setButtonConfig(() -> sqLiteHelper.updateConfig("DATA_TYPE", "CONFIRMED"), (Button) v, R.id.dataLayout));
+        showDeathsChartButton.setOnClickListener(v -> setButtonConfig(() -> sqLiteHelper.updateConfig("DATA_TYPE", "DEATHS"), (Button) v, R.id.dataLayout));
+        showRecoveredChartButton.setOnClickListener(v -> setButtonConfig(() -> sqLiteHelper.updateConfig("DATA_TYPE", "RECOVERED"), (Button) v, R.id.dataLayout));
+
+        agregateButton.setOnClickListener(v -> setButtonConfig(() -> sqLiteHelper.updateConfig("CHART_TYPE", "AGGREGATED"), (Button) v, R.id.aggregateLayout));
+        lastDayButton.setOnClickListener(v -> setButtonConfig(() -> sqLiteHelper.updateConfig("CHART_TYPE", "PER_DAY"), (Button) v, R.id.aggregateLayout));
+
+        if (config.get("CHART_TYPE").equals("AGGREGATED")) {
+            agregateButton.performClick();
+        } else {
+            lastDayButton.performClick();
+        }
+
+        if (config.get("DATA_TYPE").equals("DEATHS")) {
+            showDeathsChartButton.performClick();
+        } else if (config.get("DATA_TYPE").equals("RECOVERED")) {
+            showRecoveredChartButton.performClick();
+        } else {
+            showConfirmedChartButton.performClick();
+        }
+    }
+
+    public void setButtonConfig(Runnable runnable, Button button, int vg) {
+        runnable.run();
+        ViewGroup viewGroup = requireView().findViewById(vg);
+        for(int i=0; i<viewGroup.getChildCount(); i++) {
+            if(viewGroup.getChildAt(i) instanceof Button) {
+                ((Button) viewGroup.getChildAt(i)).setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.blue_light, null)));
+            }
+        }
+        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.green_light, null)));
     }
 
     private void initSpinner(SQLiteHelper sqLiteHelper, String value) {

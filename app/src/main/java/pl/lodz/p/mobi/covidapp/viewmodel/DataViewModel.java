@@ -14,9 +14,15 @@ public class DataViewModel extends ViewModel {
     private Map<String, CountyModel> countyStats = new TreeMap<>();
 
     public void setCountryStats(int daysConsideredNumber) {
-        countryDeathsStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.DEATHS, daysConsideredNumber);
-        countryRecoveredStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.CONFIRMED, daysConsideredNumber);
-        countryConfirmedStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.RECOVERED, daysConsideredNumber);
+        if (countryDeathsStats.isEmpty()) {
+            countryDeathsStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.DEATHS, daysConsideredNumber);
+        }
+        if(countryRecoveredStats.isEmpty()) {
+            countryRecoveredStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.CONFIRMED, daysConsideredNumber);
+        }
+        if(countryConfirmedStats.isEmpty()) {
+            countryConfirmedStats = JsonDataParser.readTotalCountryStatistics(DataTypeEnum.RECOVERED, daysConsideredNumber);
+        }
     }
 
     public void setCountyStats() {

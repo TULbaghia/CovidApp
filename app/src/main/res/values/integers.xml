@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="days_considered">10</integer>
+    <integer name="days_considered">31</integer>
 </resources>

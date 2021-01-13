@@ -70,4 +70,9 @@
         <item>Ostatni miesiąc</item>
     </string-array>
 
+
+    <string name="days_considered_option">Przedział czasu</string>
+    <string name="aggregate_option">Dane zagregowane lub z dnia</string>
+    <string name="data_type_option">Rodzaj danych</string>
+
 </resources>

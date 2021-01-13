@@ -11,6 +11,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +35,7 @@ public class StartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataViewModel = new ViewModelProvider(this).get(DataViewModel.class);
+        dataViewModel = new ViewModelProvider((ViewModelStoreOwner) this.getContext()).get(DataViewModel.class);
         sqLiteHelper = new SQLiteHelper(getContext());
     }
 
@@ -54,13 +56,13 @@ public class StartFragment extends Fragment {
 
     public void initConfig() {
         Map<String, String> config = sqLiteHelper.getConfig();
-        dataViewModel.setCountryStats(Integer.parseInt(config.get("DAYS_CONSIDERED")));
+        dataViewModel.setCountryStats(getResources().getInteger(R.integer.days_considered));
         if (config.get("DATA_TYPE").equals("DEATHS")) {
             setChartOptions(dataViewModel.getCountryDeathsStats(), getString(R.string.deaths));
         } else if (config.get("DATA_TYPE").equals("RECOVERED")) {
-            setChartOptions(dataViewModel.getCountryDeathsStats(), getString(R.string.recovered));
+            setChartOptions(dataViewModel.getCountryRecoveredStats(), getString(R.string.recovered));
         } else {
-            setChartOptions(dataViewModel.getCountryDeathsStats(), getString(R.string.confirmed));
+            setChartOptions(dataViewModel.getCountryConfirmedStats(), getString(R.string.confirmed));
         }
     }
 
@@ -94,8 +96,19 @@ public class StartFragment extends Fragment {
     }
 
     public void setChartOptions(Map<String, Integer> data, String label) {
-        barChartWrapper.setBarEntries(new ArrayList<>(data.values()), label);
-        barChartWrapper.formatXAxis(new ArrayList<>(data.keySet()));
+        Map<String, String> config = sqLiteHelper.getConfig();
+        int daysConsidered = Integer.parseInt(config.get("DAYS_CONSIDERED"));
+        List<String> keySet = new ArrayList<>(data.keySet());
+        List<Integer> values = new ArrayList<>(data.values());
+
+        if(config.get("CHART_TYPE").equals("PER_DAY")) {
+            for (int i = values.size() - 1; i > 0; i--) {
+                values.set(i, values.get(i) - values.get(i-1));
+            }
+        }
+
+        barChartWrapper.setBarEntries(values.subList(values.size() - daysConsidered, values.size()), label);
+        barChartWrapper.formatXAxis(keySet.subList(keySet.size() - daysConsidered, keySet.size()));
         barChartWrapper.getBarChart().notifyDataSetChanged();
         barChartWrapper.getBarChart().invalidate();
     }
