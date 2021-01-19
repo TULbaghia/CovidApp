@@ -1,17 +1,31 @@
 package pl.lodz.p.mobi.covidapp.viewmodel;
 
 import androidx.lifecycle.ViewModel;
+
+import org.osmdroid.views.overlay.Polygon;
+
 import java.util.Map;
 import java.util.TreeMap;
 import pl.lodz.p.mobi.covidapp.json.data.DataTypeEnum;
 import pl.lodz.p.mobi.covidapp.json.JsonDataParser;
 import pl.lodz.p.mobi.covidapp.json.data.model.CountyModel;
+import pl.lodz.p.mobi.covidapp.map.loader.Triplet;
 
 public class DataViewModel extends ViewModel {
+    private Map<String, Triplet<Integer, Double, Integer>> scrappedData;
     private Map<String, Integer> countryDeathsStats = new TreeMap<>();
     private Map<String, Integer> countryRecoveredStats = new TreeMap<>();
     private Map<String, Integer> countryConfirmedStats = new TreeMap<>();
     private Map<String, CountyModel> countyStats = new TreeMap<>();
+    private Polygon polygon;
+
+    public Polygon getPolygon() {
+        return polygon;
+    }
+
+    public void setPolygon(Polygon polygon) {
+        this.polygon = polygon;
+    }
 
     public void setCountryStats(int daysConsideredNumber) {
         if (countryDeathsStats.isEmpty()) {
@@ -27,6 +41,13 @@ public class DataViewModel extends ViewModel {
 
     public void setCountyStats() {
         countyStats = JsonDataParser.readCountyStatistics();
+    }
+
+    public void setScrappedData(Map<String, Triplet<Integer, Double, Integer>> sData) {
+        scrappedData = sData;
+    }
+    public Map<String, Triplet<Integer, Double, Integer>> getScrappedData() {
+        return scrappedData;
     }
 
     @Override

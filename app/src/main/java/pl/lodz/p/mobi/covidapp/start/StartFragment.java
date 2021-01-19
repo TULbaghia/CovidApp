@@ -98,6 +98,7 @@ public class StartFragment extends Fragment {
     public void setChartOptions(Map<String, Integer> data, String label) {
         Map<String, String> config = sqLiteHelper.getConfig();
         int daysConsidered = Integer.parseInt(config.get("DAYS_CONSIDERED"));
+        String chartType = config.get("CHART_TYPE");
         List<String> keySet = new ArrayList<>(data.keySet());
         List<Integer> values = new ArrayList<>(data.values());
 
@@ -107,7 +108,7 @@ public class StartFragment extends Fragment {
             }
         }
 
-        barChartWrapper.setBarEntries(values.subList(values.size() - daysConsidered, values.size()), label);
+        barChartWrapper.setBarEntries(values.subList(values.size() - daysConsidered, values.size()), label, chartType);
         barChartWrapper.formatXAxis(keySet.subList(keySet.size() - daysConsidered, keySet.size()));
         barChartWrapper.getBarChart().notifyDataSetChanged();
         barChartWrapper.getBarChart().invalidate();

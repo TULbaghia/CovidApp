@@ -1,5 +1,8 @@
 package pl.lodz.p.mobi.covidapp.map;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,22 +11,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-
+import androidx.lifecycle.ViewModelStoreOwner;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
-
 import java.util.UUID;
-
 import pl.lodz.p.mobi.covidapp.R;
-import pl.lodz.p.mobi.covidapp.map.dialogButtons.GreenButtonFragment;
-import pl.lodz.p.mobi.covidapp.map.dialogButtons.OrangeButtonFragment;
-import pl.lodz.p.mobi.covidapp.map.dialogButtons.RedButtonFragment;
 import pl.lodz.p.mobi.covidapp.map.loader.LoadGovData;
 import pl.lodz.p.mobi.covidapp.viewmodel.DataViewModel;
 
@@ -41,7 +38,7 @@ public class MapFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRetainInstance(true);
-        dataViewModel = new ViewModelProvider(requireActivity()).get(DataViewModel.class);
+        dataViewModel = new ViewModelProvider((ViewModelStoreOwner) this.getContext()).get(DataViewModel.class);
     }
 
     @Override
@@ -56,7 +53,6 @@ public class MapFragment extends Fragment {
         view.findViewById(R.id.countyInfoLayout).setVisibility(GONE);
         initMapView();
 //        initWebView(view);
-        initZoneButtons();
         initTextZone();
     }
 
@@ -72,27 +68,11 @@ public class MapFragment extends Fragment {
         IMapController mapController = map.getController();
         mapController.setZoom(7.2);
         mapController.setCenter(startPoint);
-
-        new LoadGovData(map, getResources()).execute("");
+        new LoadGovData(map, getResources(), dataViewModel).execute("");
     }
 
-    private void initZoneButtons() {
-        FragmentManager fm = getParentFragmentManager();
+    private void loadGovData() {
 
-        requireView().findViewById(R.id.greenZoneButton).setOnClickListener(view1 -> {
-            GreenButtonFragment dialogFragment = new GreenButtonFragment();
-            dialogFragment.show(fm, "Sample Fragment");
-        });
-
-        requireView().findViewById(R.id.orangeZoneButton).setOnClickListener(view1 -> {
-            OrangeButtonFragment dialogFragment = new OrangeButtonFragment();
-            dialogFragment.show(fm, "Sample Fragment");
-        });
-
-        requireView().findViewById(R.id.redZoneButton).setOnClickListener(view1 -> {
-            RedButtonFragment dialogFragment = new RedButtonFragment();
-            dialogFragment.show(fm, "Sample Fragment");
-        });
     }
 
     private void initTextZone() {

@@ -24,15 +24,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import pl.lodz.p.mobi.covidapp.viewmodel.DataViewModel;
+
 public class LoadGovData extends AsyncTask<String, Integer, String> {
     private Map<String, Triplet<Integer, Double, Integer>> scrappedData;
     @SuppressLint("StaticFieldLeak")
     private MapView map;
     private Resources resources;
+    private DataViewModel dataViewModel;
 
-    public LoadGovData(MapView map, Resources resources) {
+    public LoadGovData(MapView map, Resources resources, DataViewModel dataViewModel) {
         this.map = map;
         this.resources = resources;
+        this.dataViewModel = dataViewModel;
     }
 
     private Map<String, Triplet<Integer, Double, Integer>> scrapper() {
@@ -67,13 +71,18 @@ public class LoadGovData extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        scrappedData = scrapper();
+        if (dataViewModel.getScrappedData() == null) {
+            scrappedData = scrapper();
+            dataViewModel.setScrappedData(scrappedData);
+        } else {
+            scrappedData = dataViewModel.getScrappedData();
+        }
         initOnMap();
         return "";
     }
 
     public void initOnMap() {
-        MyKmlStyler myKmlStyler = new MyKmlStyler(map, scrappedData);
+        MyKmlStyler myKmlStyler = new MyKmlStyler(map, scrappedData, dataViewModel);
 
         KmlDocument kmlDocument = new KmlDocument();
         try {

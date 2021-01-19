@@ -23,14 +23,17 @@ import org.osmdroid.views.overlay.infowindow.BasicInfoWindow;
 import java.util.Map;
 
 import pl.lodz.p.mobi.covidapp.R;
+import pl.lodz.p.mobi.covidapp.viewmodel.DataViewModel;
 
 public class MyKmlStyler implements KmlFeature.Styler {
-    MapView map;
-    Map<String, Triplet<Integer, Double, Integer>> scrappedRegions;
+    private MapView map;
+    private Map<String, Triplet<Integer, Double, Integer>> scrappedRegions;
+    private DataViewModel dataViewModel;
 
-    public MyKmlStyler(MapView map, Map<String, Triplet<Integer, Double, Integer>> scrappedRegions) {
+    public MyKmlStyler(MapView map, Map<String, Triplet<Integer, Double, Integer>> scrappedRegions, DataViewModel dataViewModel) {
         this.map = map;
         this.scrappedRegions = scrappedRegions;
+        this.dataViewModel = dataViewModel;
     }
 
     @Override
@@ -57,6 +60,7 @@ public class MyKmlStyler implements KmlFeature.Styler {
         polygon.getOutlinePaint().setStrokeWidth(1.35f);
 
         String key = scrappedRegions.keySet().stream().filter(x -> region.toLowerCase().contains(x.toLowerCase())).findFirst().orElse(null);
+        dataViewModel.setPolygon(polygon);
 
         if (key != null) {
             Triplet<Integer, Double, Integer> t = scrappedRegions.get(key);

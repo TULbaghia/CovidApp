@@ -27,13 +27,10 @@ public class BarChartWrapper {
         bottomAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         bottomAxis.setValueFormatter(new IndexAxisValueFormatter(descriptions));
         bottomAxis.setLabelCount(descriptions.size());
-        if (descriptions.size() != 7) {
-            bottomAxis.setGranularity(4);
-        }
         bottomAxis.setTextSize(11f);
     }
 
-    public void setBarEntries(List<Integer> values, String label) {
+    public void setBarEntries(List<Integer> values, String label, String chartType) {
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         int i = 0;
         for (Integer value : values) {
@@ -62,8 +59,20 @@ public class BarChartWrapper {
 
         YAxis yAxisRight = barChart.getAxisRight();
         YAxis yAxisLeft = barChart.getAxisLeft();
-        yAxisRight.setAxisMinimum(0);
-        yAxisLeft.setAxisMinimum(0);
+        if (chartType.equals("AGGREGATED")) {
+            yAxisRight.setAxisMinimum(values.get(0) - (values.get(1) - values.get(0)));
+            yAxisLeft.setAxisMinimum(values.get(0) - (values.get(1) - values.get(0)));
+        } else {
+            yAxisRight.setAxisMinimum(0);
+            yAxisLeft.setAxisMinimum(0);
+        }
+        if (values.size() != 7) {
+            barChart.getXAxis().setGranularity(4);
+        } else {
+            barChart.getXAxis().setGranularity(1);
+        }
+
+
         yAxisRight.setTextSize(13f);
         yAxisLeft.setTextSize(13f);
 
