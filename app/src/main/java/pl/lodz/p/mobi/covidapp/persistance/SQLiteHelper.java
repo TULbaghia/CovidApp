@@ -123,18 +123,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return questionnaires;
     }
 
-//    public boolean addConfig() {
-//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-//        Gson gson = new Gson();
-//        String questionnaireSerialized = gson.toJson(questionnaire, Questionnaire.class);
-//
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(QUESTIONNAIRE_ID_COLUMN, questionnaire.getId().toString());
-//        contentValues.put(QUESTIONNAIRE_COLUMN, questionnaireSerialized);
-//        long insert = sqLiteDatabase.insert(QUESTIONNAIRES_TABLE_NAME, null, contentValues);
-//        return insert != -1;
-//    }
-
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="pl.lodz.p.mobi.covidapp.mapv2.Map2Fragment"
+        android:name="pl.lodz.p.mobi.covidapp.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
     <fragment

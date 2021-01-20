@@ -10,8 +10,6 @@ import android.os.StrictMode;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import pl.lodz.p.mobi.covidapp.persistance.SQLiteHelper;
-
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView mainNavigation;
@@ -24,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.changeableFragment);
         NavigationUI.setupWithNavController(mainNavigation, navController);
 
-
-        // TODO: check if change is possible.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-   }
+    }
 }

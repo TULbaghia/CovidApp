@@ -3,9 +3,11 @@ package pl.lodz.p.mobi.covidapp.start;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+
 import java.util.Map;
+
 import pl.lodz.p.mobi.covidapp.R;
 import pl.lodz.p.mobi.covidapp.persistance.SQLiteHelper;
-
 
 public class FilterFragment extends DialogFragment {
 
@@ -33,8 +36,8 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button dismiss = (Button) view.findViewById(R.id.dismissButton);
-        dismiss.setOnClickListener((View.OnClickListener) v -> dismiss());
+        Button dismiss = view.findViewById(R.id.dismissButton);
+        dismiss.setOnClickListener(v -> dismiss());
         initChartButtonsListeners();
     }
 
@@ -80,8 +83,8 @@ public class FilterFragment extends DialogFragment {
     public void setButtonConfig(Runnable runnable, Button button, int vg) {
         runnable.run();
         ViewGroup viewGroup = requireView().findViewById(vg);
-        for(int i=0; i<viewGroup.getChildCount(); i++) {
-            if(viewGroup.getChildAt(i) instanceof Button) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            if (viewGroup.getChildAt(i) instanceof Button) {
                 ((Button) viewGroup.getChildAt(i)).setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.blue_light, null)));
             }
         }

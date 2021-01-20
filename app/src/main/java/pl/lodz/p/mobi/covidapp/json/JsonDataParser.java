@@ -12,15 +12,11 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import pl.lodz.p.mobi.covidapp.json.data.DataTypeEnum;
-import pl.lodz.p.mobi.covidapp.json.data.model.CountyModel;
-
 
 public class JsonDataParser {
-
     private static String readUrl(String urlString) throws IOException {
         String pageText;
         URL url = new URL(urlString);
@@ -46,20 +42,4 @@ public class JsonDataParser {
         }
         return parsedDataList;
     }
-
-    public static Map<String, CountyModel> readCountyStatistics() {
-        Map<String, CountyModel> counties = new TreeMap<>();
-        for (int i = 1; i < 17; i++) {
-            try {
-                String data = readUrl("https://services1.arcgis.com/mQcAehnytds8jMvo/ArcGIS/rest/services/koronawirus_wojewodztwa_publiczny/FeatureServer/0/" + i + "?f=json");
-                JSONObject json = new JSONObject(data);
-                JSONObject attr = json.getJSONObject("feature").getJSONObject("attributes");
-                counties.put(attr.getString("wojewodztwo"), new CountyModel(attr));
-            } catch (IOException | JSONException e) {
-                System.err.format("%s, %s", e, e.getMessage());
-            }
-        }
-        return counties;
-    }
-
 }
