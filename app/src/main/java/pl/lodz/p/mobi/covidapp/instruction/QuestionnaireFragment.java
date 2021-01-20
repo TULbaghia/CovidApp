@@ -71,6 +71,9 @@ public class QuestionnaireFragment extends DialogFragment {
             ProgressBar progressBar = getView().findViewById(R.id.progressBar);
             progressBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor(questionnaire.formatColor())));
 
+            ImageView questionImageView = getView().findViewById(R.id.questionImageView);
+            questionImageView.setImageResource(questionnaire.formatFinalIcon());
+
             SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
             sqLiteHelper.addQuestionnairesResults(questionnaire);
         }

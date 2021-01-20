@@ -3,6 +3,7 @@ package pl.lodz.p.mobi.covidapp.json;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,7 +35,7 @@ public class JsonDataParser {
         Map<String, Integer> parsedDataList = new LinkedHashMap<>();
         try {
             JSONArray json = new JSONArray(readUrl(url.getUrl()));
-            for (int i = 0; i < daysConsideredNumber; i++) {
+            for (int i = 0; i < daysConsideredNumber + 1; i++) {
                 parsedDataList.put(
                         json.getJSONObject(json.length() - daysConsideredNumber + i).getString("Date").substring(5, 10),
                         json.getJSONObject(json.length() - daysConsideredNumber + i).getInt("Cases")
@@ -48,7 +49,7 @@ public class JsonDataParser {
 
     public static Map<String, CountyModel> readCountyStatistics() {
         Map<String, CountyModel> counties = new TreeMap<>();
-        for(int i=1; i<17; i++) {
+        for (int i = 1; i < 17; i++) {
             try {
                 String data = readUrl("https://services1.arcgis.com/mQcAehnytds8jMvo/ArcGIS/rest/services/koronawirus_wojewodztwa_publiczny/FeatureServer/0/" + i + "?f=json");
                 JSONObject json = new JSONObject(data);

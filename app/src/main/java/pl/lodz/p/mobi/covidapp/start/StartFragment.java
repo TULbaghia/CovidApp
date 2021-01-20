@@ -67,17 +67,17 @@ public class StartFragment extends Fragment {
     }
 
     private void initStatsTextViews() {
-        String dataFromDay = new ArrayList<>(dataViewModel.getCountryDeathsStats().entrySet()).get(dataViewModel.getCountryDeathsStats().size() - 1).getKey();
+        String dataFromDay = new ArrayList<>(dataViewModel.getCountryDeathsStats().entrySet()).get(dataViewModel.getCountryDeathsStats().size() - 2).getKey();
         dataFromDay = dataFromDay.replace('-', '/');
 
         List<Integer> confirmed = new ArrayList<>(dataViewModel.getCountryConfirmedStats().values());
-        int resultConfirmed = confirmed.get(confirmed.size() - 1) - confirmed.get(confirmed.size() - 2);
+        int resultConfirmed = confirmed.get(confirmed.size() - 2) - confirmed.get(confirmed.size() - 3);
 
         List<Integer> recovered = new ArrayList<>(dataViewModel.getCountryRecoveredStats().values());
-        int resultRecovered = recovered.get(confirmed.size() - 1) - recovered.get(confirmed.size() - 2);
+        int resultRecovered = recovered.get(confirmed.size() - 2) - recovered.get(confirmed.size() - 3);
 
         List<Integer> deaths = new ArrayList<>(dataViewModel.getCountryDeathsStats().values());
-        int resultDeaths = deaths.get(confirmed.size() - 1) - deaths.get(confirmed.size() - 2);
+        int resultDeaths = deaths.get(confirmed.size() - 2) - deaths.get(confirmed.size() - 3);
 
         ((TextView) requireView().findViewById(R.id.statsLabelTextView)).setText(getString(R.string.last_day, dataFromDay));
         ((TextView) requireView().findViewById(R.id.confirmedTextView)).setText(getString(R.string.last_day_confirmed, resultConfirmed));
@@ -102,14 +102,14 @@ public class StartFragment extends Fragment {
         List<String> keySet = new ArrayList<>(data.keySet());
         List<Integer> values = new ArrayList<>(data.values());
 
-        if(config.get("CHART_TYPE").equals("PER_DAY")) {
+        if (config.get("CHART_TYPE").equals("PER_DAY")) {
             for (int i = values.size() - 1; i > 0; i--) {
-                values.set(i, values.get(i) - values.get(i-1));
+                values.set(i, values.get(i) - values.get(i - 1));
             }
         }
 
-        barChartWrapper.setBarEntries(values.subList(values.size() - daysConsidered, values.size()), label, chartType);
-        barChartWrapper.formatXAxis(keySet.subList(keySet.size() - daysConsidered, keySet.size()));
+        barChartWrapper.setBarEntries(values.subList(values.size() - daysConsidered - 1, values.size() - 1), label, chartType);
+        barChartWrapper.formatXAxis(keySet.subList(keySet.size() - daysConsidered - 1, keySet.size() - 1));
         barChartWrapper.getBarChart().notifyDataSetChanged();
         barChartWrapper.getBarChart().invalidate();
     }
