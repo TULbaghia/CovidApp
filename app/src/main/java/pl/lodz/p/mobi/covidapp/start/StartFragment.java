@@ -26,7 +26,6 @@ public class StartFragment extends Fragment {
 
     DataViewModel dataViewModel = null;
     BarChartWrapper barChartWrapper = null;
-    SQLiteHelper sqLiteHelper = null;
 
     public StartFragment() {
         // Required empty public constructor
@@ -36,7 +35,6 @@ public class StartFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dataViewModel = new ViewModelProvider((ViewModelStoreOwner) this.getContext()).get(DataViewModel.class);
-        sqLiteHelper = new SQLiteHelper(getContext());
     }
 
     @Override
@@ -55,15 +53,17 @@ public class StartFragment extends Fragment {
     }
 
     public void initConfig() {
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
         Map<String, String> config = sqLiteHelper.getConfig();
         dataViewModel.setCountryStats(getResources().getInteger(R.integer.days_considered));
         if (config.get("DATA_TYPE").equals("DEATHS")) {
-            setChartOptions(dataViewModel.getCountryDeathsStats(), getString(R.string.deaths));
+            setChartOptions(config, dataViewModel.getCountryDeathsStats(), getString(R.string.deaths));
         } else if (config.get("DATA_TYPE").equals("RECOVERED")) {
-            setChartOptions(dataViewModel.getCountryRecoveredStats(), getString(R.string.recovered));
+            setChartOptions(config, dataViewModel.getCountryRecoveredStats(), getString(R.string.recovered));
         } else {
-            setChartOptions(dataViewModel.getCountryConfirmedStats(), getString(R.string.confirmed));
+            setChartOptions(config, dataViewModel.getCountryConfirmedStats(), getString(R.string.confirmed));
         }
+        sqLiteHelper.close();
     }
 
     private void initStatsTextViews() {
@@ -95,8 +95,7 @@ public class StartFragment extends Fragment {
         });
     }
 
-    public void setChartOptions(Map<String, Integer> data, String label) {
-        Map<String, String> config = sqLiteHelper.getConfig();
+    public void setChartOptions(Map<String, String> config, Map<String, Integer> data, String label) {
         int daysConsidered = Integer.parseInt(config.get("DAYS_CONSIDERED"));
         String chartType = config.get("CHART_TYPE");
         List<String> keySet = new ArrayList<>(data.keySet());

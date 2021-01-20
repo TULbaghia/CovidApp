@@ -88,5 +88,6 @@ public class InstructionFragment extends Fragment {
                 ((TextView) ll.getChildAt(i)).setText(Html.fromHtml(sb.toString(), 0));
             }
         }
+        sqLiteHelper.close();
     }
 }
