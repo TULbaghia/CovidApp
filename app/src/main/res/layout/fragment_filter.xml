@@ -27,6 +27,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/showDeathsChartButton"
+                android:letterSpacing=".05"
                 android:layout_width="109dp"
                 android:layout_height="75dp"
                 android:backgroundTint="@color/blue_light"
@@ -39,6 +40,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/showRecoveredChartButton"
+                android:letterSpacing=".05"
                 android:layout_width="105dp"
                 android:layout_height="75dp"
                 android:backgroundTint="@color/blue_light"
@@ -49,6 +51,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/showConfirmedChartButton"
+                android:letterSpacing=".05"
                 android:layout_width="109dp"
                 android:layout_height="75dp"
                 android:backgroundTint="@color/blue_light"
