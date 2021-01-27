@@ -3,6 +3,7 @@ package pl.lodz.p.mobi.covidapp.instruction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,9 @@ public class InstructionFragment extends Fragment {
         view.findViewById(R.id.facebookImageView).setOnClickListener(v -> {
             startIntent(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.mz_facebook_url))));
         });
+        view.findViewById(R.id.vaccinateImageView).setOnClickListener(v -> {
+            startIntent(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.vaccinate_url))));
+        });
     }
 
     private void startIntent(@NonNull Intent intent) {
@@ -73,9 +77,17 @@ public class InstructionFragment extends Fragment {
         LinearLayout ll = getView().findViewById(R.id.questionnariesLayout);
         for (int i = 0; i < questionnaires.size(); i++) {
             if(ll.getChildAt(i) instanceof TextView) {
-                String input = questionnaires.get(i).first + "\n" + questionnaires.get(i).second.formatAnswer(getContext());
-                ((TextView) ll.getChildAt(i)).setText(input);
+                Pair<String, Questionnaire> q = questionnaires.get(i);
+                String date = InstructionUtil.formatDate(q.first);
+                StringBuilder sb = new StringBuilder();
+                sb.append("<span>")
+                        .append("<span style=\"color:").append(q.second.formatColor()).append(";\">&#11044; </span>")
+                        .append("<span><b>").append(date).append("</b></span><br>")
+                        .append("<span>").append(q.second.formatAnswer(getContext())).append("</span>")
+                        .append("</span>");
+                ((TextView) ll.getChildAt(i)).setText(Html.fromHtml(sb.toString(), 0));
             }
         }
+        sqLiteHelper.close();
     }
 }

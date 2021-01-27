@@ -1,24 +1,23 @@
 package pl.lodz.p.mobi.covidapp.instruction;
 
 public class Question {
-    private String imagePath = "";
     private String title;
+    private String description;
+    private double weight;
+    private boolean response = false;
+    private int imageResource;
 
     @Override
     public String toString() {
         return "{ Title=" + title + ", response=" + response + '}';
     }
 
-    private String description;
-    private double weight;
-    private boolean response = false;
-
-    public String getImagePath() {
-        return imagePath;
+    public int getImageResource() {
+        return imageResource;
     }
 
-    public Question setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public Question setImageResource(int imageResource) {
+        this.imageResource = imageResource;
         return this;
     }
 

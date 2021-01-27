@@ -7,30 +7,28 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import java.util.ArrayList;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import pl.lodz.p.mobi.covidapp.R;
-import pl.lodz.p.mobi.covidapp.start.chart.BarChartWrapper;
+import pl.lodz.p.mobi.covidapp.persistance.SQLiteHelper;
+import pl.lodz.p.mobi.covidapp.start.utils.BarChartWrapper;
 import pl.lodz.p.mobi.covidapp.viewmodel.DataViewModel;
 
 public class StartFragment extends Fragment {
-
     DataViewModel dataViewModel = null;
     BarChartWrapper barChartWrapper = null;
 
     public StartFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataViewModel = new ViewModelProvider(this).get(DataViewModel.class);
     }
 
     @Override
@@ -42,45 +40,39 @@ public class StartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dataViewModel = new ViewModelProvider((ViewModelStoreOwner) this.getContext()).get(DataViewModel.class);
         barChartWrapper = new BarChartWrapper(view.findViewById(R.id.barChart));
+        initConfig();
+        initFilters();
+        setBottomText();
+    }
+
+    public void initConfig() {
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
+        Map<String, String> config = sqLiteHelper.getConfig();
         dataViewModel.setCountryStats(getResources().getInteger(R.integer.days_considered));
-        initChartButtonsListeners();
-        initStatsTextViews();
-        setDefaultChart();
+        if (config.get("DATA_TYPE").equals("DEATHS")) {
+            barChartWrapper.setChartOptions(config, dataViewModel.getCountryDeathsStats(), getString(R.string.deaths));
+        } else if (config.get("DATA_TYPE").equals("RECOVERED")) {
+            barChartWrapper.setChartOptions(config, dataViewModel.getCountryRecoveredStats(), getString(R.string.recovered));
+        } else {
+            barChartWrapper.setChartOptions(config, dataViewModel.getCountryConfirmedStats(), getString(R.string.confirmed));
+        }
+        sqLiteHelper.close();
     }
 
-
-    private void initChartButtonsListeners() {
-        FloatingActionButton showConfirmedChartButton = requireView().findViewById(R.id.showConfirmedChartButton);
-        FloatingActionButton showDeathsChartButton = requireView().findViewById(R.id.showDeathsChartButton);
-        FloatingActionButton showRecoveredChartButton = requireView().findViewById(R.id.showRecoveredChartButton);
-
-        showConfirmedChartButton.setOnClickListener(v -> setChartOptions(dataViewModel.getCountryConfirmedStats(), getString(R.string.confirmed)));
-        showDeathsChartButton.setOnClickListener(v -> setChartOptions(dataViewModel.getCountryDeathsStats(), getString(R.string.deaths)));
-        showRecoveredChartButton.setOnClickListener(v -> setChartOptions(dataViewModel.getCountryRecoveredStats(), getString(R.string.recovered)));
+    private void initFilters() {
+        requireView().findViewById(R.id.filterButton).setOnClickListener(view1 -> {
+            DialogFragment dialogFragment = new FilterFragment();
+            dialogFragment.setTargetFragment(this, 1);
+            dialogFragment.show(getParentFragmentManager(), "Filter fragment");
+        });
     }
 
-    private void initStatsTextViews() {
-        String dataFromDay = new ArrayList<>(dataViewModel.getCountryDeathsStats().entrySet()).get(dataViewModel.getCountryDeathsStats().size() - 1).getKey();
-        dataFromDay = dataFromDay.replace('-', '/');
-        int confirmed = new ArrayList<>(dataViewModel.getCountryConfirmedStats().entrySet()).get(dataViewModel.getCountryConfirmedStats().size() - 1).getValue();
-        int recovered = new ArrayList<>(dataViewModel.getCountryRecoveredStats().entrySet()).get(dataViewModel.getCountryRecoveredStats().size() - 1).getValue();
-        int dead = new ArrayList<>(dataViewModel.getCountryDeathsStats().entrySet()).get(dataViewModel.getCountryDeathsStats().size() - 1).getValue();
-
-        ((TextView) requireView().findViewById(R.id.statsLabelTextView)).setText(getString(R.string.last_day, dataFromDay));
-        ((TextView) requireView().findViewById(R.id.confirmedTextView)).setText(getString(R.string.last_day_confirmed, confirmed));
-        ((TextView) requireView().findViewById(R.id.recoveredTextView)).setText(getString(R.string.last_day_recovered, recovered));
-        ((TextView) requireView().findViewById(R.id.deathsTextView)).setText(getString(R.string.last_day_deaths, dead));
-    }
-
-    private void setDefaultChart() {
-        requireView().findViewById(R.id.showDeathsChartButton).callOnClick();
-    }
-
-    public void setChartOptions(Map<String, Integer> data, String label) {
-        barChartWrapper.setBarEntries(new ArrayList<>(data.values()), label);
-        barChartWrapper.formatXAxis(new ArrayList<>(data.keySet()));
-        barChartWrapper.getBarChart().notifyDataSetChanged();
-        barChartWrapper.getBarChart().invalidate();
+    private void setBottomText() {
+        ((TextView) requireView().findViewById(R.id.statsLabelTextView)).setText(getString(R.string.last_day, dataViewModel.getStartStatsDay()));
+        ((TextView) requireView().findViewById(R.id.confirmedTextView)).setText(getString(R.string.last_day_confirmed, dataViewModel.getStartStats().getLeft()));
+        ((TextView) requireView().findViewById(R.id.recoveredTextView)).setText(getString(R.string.last_day_recovered, dataViewModel.getStartStats().getMiddle()));
+        ((TextView) requireView().findViewById(R.id.deathsTextView)).setText(getString(R.string.last_day_deaths, dataViewModel.getStartStats().getRight()));
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">covidapp</string>
+    <string name="app_name">Covidzen</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="map">Mapa</string>
@@ -7,9 +7,9 @@
     <string name="home">Start</string>
 
     <!-- chart labels -->
-    <string name="deaths">Śmierci</string>
-    <string name="confirmed">Zakażenia</string>
-    <string name="recovered">Wyzdrowiało</string>
+    <string name="deaths">Zmarli</string>
+    <string name="confirmed">Zakażeni</string>
+    <string name="recovered">Zdrowi</string>
 
     <!-- last day stats labels -->
     <string name="last_day">Statystyki na dzień %s</string>
@@ -52,6 +52,7 @@
     <string name="mz_url">https://www.gov.pl/web/zdrowie</string>
     <string name="mz_twitter_url">https://twitter.com/MZ_GOV_PL</string>
     <string name="mz_facebook_url">https://www.facebook.com/MZGOVPL/</string>
+    <string name="vaccinate_url">https://www.gov.pl/web/szczepimysie</string>
     <string name="questionnaire_info">Ankieta wypełniona dnia %s. Stan: %s.</string>
 
     <!-- questionnaire -->
@@ -61,5 +62,17 @@
     <string name="state_healthy">Nie posiadasz większości objawów zakażania COVID-19</string>
     <string name="state_unsolvable">Nie można jednoznacznie stwierdzić, że jesteś chory</string>
     <string name="state_infected">Powinieneś natychmiast skontaktować się z lekarzem</string>
+
+    <string name="progress" formatted="true">Pytanie nr %d / %d</string>
+    <string-array name="range" formatted="true">
+        <item>Ostatnie 7 dni</item>
+        <item>Ostatnie 14 dni</item>
+        <item>Ostatni miesiąc</item>
+    </string-array>
+
+
+    <string name="days_considered_option">Przedział czasu</string>
+    <string name="aggregate_option">Dane zagregowane lub z dnia</string>
+    <string name="data_type_option">Rodzaj danych</string>
 
 </resources>
